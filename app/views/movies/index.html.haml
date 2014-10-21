@@ -1,24 +1,24 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
-= form_tag movies_path, :method => :get do
+= form_tag movies_path, :method => :get, :id => "ratings_form" do
   Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]",nil,@filter.include?(rating), id:"ratings_#{rating}"
-  = submit_tag 'Refresh'
+  = submit_tag 'Refresh',id:"ratings_submit"
 
 %table#movies
   %thead
     %tr
-      %th{'title' == @sort? {:class=>'hilite', :id => 'title_header'}:{:id => 'title_header'}}= link_to 'Movie Title', movies_path({'sortby'=>'title'}) 
+      %th{'title' == @sortby? {:class=>'hilite', :id => 'title_header'}:{:id => 'title_header'}}= link_to 'Movie Title', movies_path({'sortby'=>'title'}) 
       %th Rating
-      %th{'release_date' == @sort? {:class=>'hilite',:id => 'release_date_header'}:{:id => 'release_date_header'}}= link_to 'Release Date', movies_path({'sortby'=>'release_date'}),:id => 'release_date_header' 
+      %th{'release_date' == @sortby? {:class=>'hilite',:id => 'release_date_header'}:{:id => 'release_date_header'}}= link_to 'Release Date', movies_path({'sortby'=>'release_date'}),:id => 'release_date_header' 
       %th More Info
   %tbody
     - @movies.each do |movie|
       %tr
-        %td= movie.title 
+        %td= movie.title
         %td= movie.rating
         %td= movie.release_date
         %td= link_to "More about #{movie.title}", movie_path(movie)
