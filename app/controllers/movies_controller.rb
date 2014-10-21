@@ -7,19 +7,25 @@ class MoviesController < ApplicationController
   end
 
   def index
-    if params[:sortby] != nil
-      @sort = params[:sortby]
-      @movies = Movie.order(params[:sortby])
-    else
-      @movies = Movie.all
-    end
     @all_ratings = Movie::ALLRATINGS
-    if params[:ratings] != nil 
-      @ratings = params[:ratings].keys
-      @movies = @movies.find_all { |movie| @ratings.include? movie.rating }
+    session[:sortby] = params[:sortby] if params[:sortby] != nil
+    @sortby = session[:sortby]
+    @filter = []
+    if (params[:ratings])
+      params[:ratings].each_key { |key|
+        @filter.push(key)
+      }
+      @movies = Movie.find(:all,:order=>@sortby,:conditions=>{:rating=>@filter})
+      session[:ratings] = Hash[@filter.zip(@filter)]
+    else
+      if (session[:ratings])
+        flash.keep
+        redirect_to movies_path(:sort=>session[:sortby],:ratings=>session[:ratings])
+      end
+      @movies = Movie.all(:order=>@sortby)
     end
   end
-
+  
   def new
     # default: render 'new' template
   end
