@@ -13,6 +13,11 @@ class MoviesController < ApplicationController
     else
       @movies = Movie.all
     end
+    @all_ratings = Movie::ALLRATINGS
+    if params[:ratings] != nil 
+      @ratings = params[:ratings].keys
+      @movies = @movies.find_all { |movie| @ratings.include? movie.rating }
+    end
   end
 
   def new
