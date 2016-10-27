@@ -1,7 +1,7 @@
 HW2: RAILS INTRO - ADD FEATURES TO ROTTENPOTATOES
 ---------
 
-In this homework you will add a feature to an existing simple Rails app and deploy the result publicly on the Heroku cloud hosting service. We will run live integration tests against your deployed version.
+In this homework you will add a feature to an existing simple Rails app and deploy the result publicly on the Heroku cloud hosting service. We will run live integration tests against your deployed version. In addition you will realize why rails is AWESOME!!!!
 
 General advice:  This homework involves modifying RottenPotatoes in various ways. Git is your friend: commit frequently in case you inadvertently break something that was working before! That way you can always back up to an earlier revision, or just visually compare what changed in each file since your last “good” commit.
 
